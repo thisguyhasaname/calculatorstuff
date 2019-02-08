@@ -1,0 +1,109 @@
+import math
+import replit
+replit.clear()
+
+def check_int(question,numberType,rangeNumber):
+  if numberType == 1:
+    errorProtection = True
+    while errorProtection:
+      variable = input(question)
+      try:
+        variable = int(variable)
+      except:
+        print("Sorry it must be a digit press enter to continue")
+        k = input()
+        replit.clear()
+      else:
+        if variable > rangeNumber:
+          print("Sorry that is out of range")
+        else:
+          errorProtection = False
+    return variable
+  else:
+    errorProtection = True
+    while errorProtection:
+      variable = input(question)
+      try:
+        variable = float(variable)
+      except:
+        print("Sorry it must be a number press enter to continue")
+        k = input()
+        replit.clear()
+    return variable
+
+def calculator(prev,redo):
+  algebraOrGeometry = check_int("Are you doing\n\t1.algebra\n\t2.geometry\n\t> ",1,2)
+  if algebraOrGeometry == 1: #algebra
+    if redo == 1: #using previous answer
+      first = prev
+      second = check_int("second number?\n\t> ",2, )
+    else:
+      first = check_int("first number?\n\t> ",2, )
+      second = check_int("second number?\n\t> ",2, )
+    operation = check_int("What operation are you doing?\n\t> ",1,5)
+    if operation == 1:
+      print(f"{first} + {second} = {first + second}")
+      return first + second
+    elif operation == 2:
+      print(f"{first} - {second} = {first - second}")
+      return first - second
+    elif operation == 3:
+      print(f"{first} * {second} = {first * second}")
+      return first * second
+    elif operation == 4:
+      try:
+        print(f"{first} / {second} = {first / second}")
+        return first / second
+      except:
+          print("Sorry, no dividing by zero allowed.")
+    elif operation == 5:
+      print(f"{first} ^ {second} = {math.pow(first,second)}")
+  else:
+      operation = check_int("What function?\n\t1. Sine\n\t2. Cosine \n\t3. Tangent\n\t> ",1,3)
+      trigFunctionNumber = check_int("What is the numerator in radians?\n\t> ",2, )
+      trigFunctionNumber2 = check_int("What is the denominator in radians?\n\t> ",2, )
+  if operation == 1:
+    print (f"sin({trigFunctionNumber / trigFunctionNumber2}) = {math.sin(trigFunctionNumber / trigFunctionNumber2 * math.pi)}")
+  elif operation == 2:
+    print (f"cos({trigFunctionNumber / trigFunctionNumber2}) = {math.cos(trigFunctionNumber / trigFunctionNumber2 * math.pi)}")
+  elif operation == 3:
+    print (f"Tan({trigFunctionNumber / trigFunctionNumber2}) = {math.tan(trigFunctionNumber / trigFunctionNumber2 * math.pi)}")
+    
+y = True
+x = True
+z = True
+prev_ans = calculator(0,0)
+while x:
+  if y:
+    errorProtection = True
+    while errorProtection:
+      repeat = input("Do you want to do another calculation?\ny or n? >").lower()
+      if repeat == "y" or repeat == "n":
+        errorProtection = False
+      else:
+        print("Sorry your answer must either be y or n")
+    if repeat == "n":
+      z = False
+    y = False
+  if z:
+    errorProtection = True
+    while errorProtection:
+      use_prev = input("Do you want to use the previous answer?\ny or n ").lower()
+      if use_prev == "n" or use_prev == "y":
+        errorProtection = False
+      else:
+        print("sorry your response must either be y or n")
+    if use_prev == "y":
+      prev_ans = calculator(prev_ans,1)
+    elif use_prev == "n":
+      prev_ans = calculator(prev_ans,0)
+    errorProtection = True
+    if errorProtection:
+      repeat = input("Do you want to do another calculation?\ny or n? >").lower()
+      if repeat == "y" or repeat == "n":
+        errorProtection = False
+      else:
+        print("Sorry your response must either be y or n")
+  if repeat == "n":
+    x = False
+    print("Ending program.")
